@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
     static int COL = 3;
     static int[] count;
     static int[][] input = new int[101][101];
-    static ArrayList<MySort> list;
+    static PriorityQueue<MySort> queue;
     public static void main(String[] args) throws IOException {
         new Main().solve();
     }
@@ -60,12 +61,14 @@ public class Main {
             for (int j = 1; j <= COL; j++) {
                 count[input[i][j]]++;
             }
-            sortList();
-            max = Math.max(max, list.size() * 2);
+            addQueue();
+            max = Math.max(max, queue.size() * 2);
             int index = 1;
-            for (int j = 0; j < list.size(); j++) {
-                input[i][index++] = list.get(j).num;
-                input[i][index++] = list.get(j).count;
+            while (!queue.isEmpty()) {
+                MySort element = queue.poll();
+                input[i][index++] = element.num;
+                input[i][index++] = element.count;
+                if (index > 100) break;
             }
             for (int j = index; j <= 100; j++) {
                 input[i][j] = 0;
@@ -81,12 +84,14 @@ public class Main {
             for (int j = 1; j <= ROW; j++) {
                 count[input[j][i]]++;
             }
-            sortList();
-            max = Math.max(max, list.size() * 2);
+            addQueue();
+            max = Math.max(max, queue.size() * 2);
             int index = 1;
-            for (int j = 0; j < list.size(); j++) {
-                input[index++][i] = list.get(j).num;
-                input[index++][i] = list.get(j).count;
+            while (!queue.isEmpty()) {
+                MySort element = queue.poll();
+                input[index++][i] = element.num;
+                input[index++][i] = element.count;
+                if (index > 100) break;
             }
             for (int j = index; j <= 100; j++) {
                 input[j][i] = 0;
@@ -95,32 +100,33 @@ public class Main {
         return max;
     }
 
-    private static void addList() {
-        list = new ArrayList<MySort>();
+    private static void addQueue() {
+        queue = new PriorityQueue<MySort>();
 
         for (int j = 1; j <= 100; j++) {
             if (count[j] > 0) {
-                list.add(new MySort(j, count[j]));
+                queue.offer(new MySort(j, count[j]));
             }
         }
     }
-
-    private static void sortList() {
-        list = new ArrayList<MySort>();
-        addList();
-        list.sort((o1, o2) -> {
-            if (o1.count == o2.count) return o1.num - o2.num;
-            return o1.count - o2.count;
-        });
-    }
 }
 
-class MySort{
+class MySort implements Comparable<MySort> {
     int num;
     int count;
 
     public MySort(int num, int count) {
         this.num = num;
         this.count = count;
+    }
+
+    @Override
+    public int compareTo(MySort o) {
+        if (this.count < o.count) {
+            return -1;
+        } else if (this.count == o.count) {
+            return this.num - o.num;
+        }
+        return 1;
     }
 }
