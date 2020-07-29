@@ -24,7 +24,7 @@ public class Main {
             if (n2 % i == 0 && n1 % i == 0) {
                 if (greatest < i) {
                     greatest = i;
-                    least = greatest * (n1 / greatest) * (n2 / greatest);
+                    least = n1 * n2 / greatest;
                 }
             }
         }
