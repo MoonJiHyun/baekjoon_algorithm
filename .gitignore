@@ -25,9 +25,9 @@ out/
 hs_err_pid*
 test/
 problem/
-*/gradle
-*/gradlew
-*/.gradle
-*/gradlew.bat
-*/build.gradle
-*/settings.gradle
+**/gradle
+**/gradlew
+**/.gradle
+**/gradlew.bat
+**/build.gradle
+**/settings.gradle
