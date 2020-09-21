@@ -46,7 +46,7 @@ public class Main {
 
     private static void solve() {
         Queue<Node> q = new LinkedList<>();
-        q.add(new Node(0, 0, 1, false));
+        q.offer(new Node(0, 0, 1, false));
 
         boolean[][][] isVisited = new boolean[N][M][2];
 
@@ -66,13 +66,13 @@ public class Main {
                 if (!isRange(nr, nc)) continue;
                 if (map[nr][nc]) {
                     if (!flag && !isVisited[nr][nc][1]) {
-                        q.add(new Node(nr, nc, n.t + 1, true));
+                        q.offer(new Node(nr, nc, n.t + 1, true));
                         isVisited[nr][nc][1] = true;
                     }
                 } else {
                     int breakWall = flag ? 1 : 0;
                     if (!isVisited[nr][nc][breakWall]) {
-                        q.add(new Node(nr, nc, n.t + 1, flag));
+                        q.offer(new Node(nr, nc, n.t + 1, flag));
                         isVisited[nr][nc][breakWall] = true;
                     }
                 }
