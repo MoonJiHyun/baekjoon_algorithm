@@ -1,5 +1,3 @@
-package com.company;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,9 +14,6 @@ public class Main {
     static int[][] input = new int[101][101];
     static PriorityQueue<MySort> queue;
     public static void main(String[] args) throws IOException {
-        new Main().solve();
-    }
-    public static void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         r = Integer.parseInt(st.nextToken());
